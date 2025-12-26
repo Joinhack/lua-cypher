@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.15)
-project(crypher LANGUAGES C)
+project(cypher LANGUAGES C)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-find_package(lua REQUIRED)
+find_package(Lua REQUIRED)
 
 file(GLOB SRC "*.c")
 
@@ -16,13 +16,13 @@ if(Lua_FOUND AND NOT TARGET Lua::Lua)
   )
 endif()
 
-add_library(crypher SHARED ${SRC})
-set_target_properties(crypher PROPERTIES 
-  OUTPUT_NAME "crypher"
+add_library(cypher SHARED ${SRC})
+set_target_properties(cypher PROPERTIES 
+  OUTPUT_NAME "cypher"
   PREFIX ""
   SUFFIX ".so"
 )
-target_link_libraries(crypher PRIVATE Lua::Lua)
+target_link_libraries(cypher PRIVATE Lua::Lua)
 
 enable_testing(true)
-add_test(NAME cypher_test COMMAND lua ${CMAKE_CURRENT_SOURCE_DIR}/test.lua)
+add_test(NAME cypher_test COMMAND  lua ${CMAKE_CURRENT_SOURCE_DIR}/test.lua)
