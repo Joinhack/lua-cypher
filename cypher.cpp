@@ -1,6 +1,4 @@
-#include <lua.h>
-#include <lualib.h>
-#include <lauxlib.h>
+#include <lua.hpp>
 #include "sha256.h"
 
 static char *LUA_SHA256 = "lua_sha256";

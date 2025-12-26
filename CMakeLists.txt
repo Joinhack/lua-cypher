@@ -4,7 +4,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(Lua REQUIRED)
 
-file(GLOB SRC "*.c")
+file(GLOB SRC "*.c" "*.cpp")
 
 if(Lua_FOUND AND NOT TARGET Lua::Lua)
   add_library(Lua::Lua INTERFACE IMPORTED)
@@ -17,11 +17,15 @@ if(Lua_FOUND AND NOT TARGET Lua::Lua)
 endif()
 
 add_library(cypher SHARED ${SRC})
-set_target_properties(cypher PROPERTIES 
-  OUTPUT_NAME "cypher"
-  PREFIX ""
-  SUFFIX ".so"
-)
+
+if(NOT WIN32 AND UNIX)
+  set_target_properties(cypher PROPERTIES 
+    OUTPUT_NAME "cypher"
+    PREFIX ""
+    SUFFIX ".so"
+  )
+endif()
+
 target_link_libraries(cypher PRIVATE Lua::Lua)
 
 enable_testing(true)
