@@ -1,10 +1,11 @@
 cmake_minimum_required(VERSION 3.15)
-project(cypher LANGUAGES C)
+project(cypher)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 
 find_package(Lua REQUIRED)
 
-file(GLOB SRC "*.c" "*.cpp")
+file(GLOB SRC "*.cpp")
 
 if(Lua_FOUND AND NOT TARGET Lua::Lua)
   add_library(Lua::Lua INTERFACE IMPORTED)

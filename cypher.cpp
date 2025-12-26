@@ -1,11 +1,16 @@
-#include <lua.hpp>
+extern "C" {
+    #include <lua.h>
+    #include <lualib.h>
+    #include <lauxlib.h>
+}
 #include "sha256.h"
+#include "cypher.h"
 
-static char *LUA_SHA256 = "lua_sha256";
-static char *LUA_CYPHER = "lua_crypher";
+static const char *LUA_SHA256 = "lua_sha256";
+static const char *LUA_CYPHER = "lua_crypher";
 
 int lua_sha256_new(lua_State* L) {
-    SHA256_CTX *ctx = lua_newuserdata(L, sizeof(SHA256_CTX));
+    SHA256_CTX *ctx = static_cast<SHA256_CTX*>(lua_newuserdata(L, sizeof(SHA256_CTX)));
     sha256_init(ctx);
     luaL_newmetatable(L, LUA_SHA256);
     lua_setmetatable(L, -2);
@@ -55,7 +60,7 @@ static void sha256_register(lua_State *L) {
     lua_setfield(L, -2, "sha256");
 }
 
-int luaopen_cypher(lua_State *L) {
+extern "C" LUA_EXPORT int luaopen_cypher(lua_State *L) {
     luaL_newmetatable(L, LUA_CYPHER);
     sha256_register(L);
     return 1;
