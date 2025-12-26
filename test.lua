@@ -15,8 +15,7 @@ function sha256_test()
     local sha256_ctx = cypher.sha256.new()
     sha256_ctx:update("11")
     local val = sha256_ctx:final()
-    print(bin2hex(val))
-    assert(val ~= '6b86b273ff34fce19d6b804eff5a3f5747ada4fcb093289916d63c9c0a004102', "sha256 fail")
+    assert(bin2hex(val) == '4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8', "sha256 fail")
 end
 
 sha256_test()
